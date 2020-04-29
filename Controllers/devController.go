@@ -7,14 +7,17 @@ import (
 )
 
 func CreateDev(w http.ResponseWriter, r *http.Request) {
-
-	dev := &Models.Dev{}
+	dev := Models.Dev{}
 	json.NewDecoder(r.Body).Decode(&dev)
 	err := Models.InsertDev(dev)
 	if err != nil {
 		panic(error(err))
 	}
-
+	w.WriteHeader(200)
+	err = json.NewEncoder(w).Encode(&dev)
+	if err != nil {
+		panic(error(err))
+	}
 }
 
 func IndexDevs(w http.ResponseWriter, r *http.Request) {
@@ -22,6 +25,7 @@ func IndexDevs(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(error(err))
 	}
+	w.WriteHeader(200)
 	err = json.NewEncoder(w).Encode(devs)
 	if err != nil {
 		panic(error(err))
