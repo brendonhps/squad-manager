@@ -1,7 +1,7 @@
 package Models
 
 import (
-	"github.com/google/uuid"
+	"squad-manager/Aux"
 	"squad-manager/DB"
 )
 
@@ -19,14 +19,14 @@ func InsertDev(dev Dev) (error) {
 	INSERT INTO dev (dev_id,name, age)
 	VALUES ($1, $2, $3)`
 
-	dev.id = uuid.UUID.String()
+	dev.id = Aux.GenerateUUID()
 	_, err := db.Exec(insertDeveloper,dev.id, dev.name, dev.age)
 	return err
 }
 
-func SearchAllDevs() (devs []Dev, err error) {
-	db := DB.ConnSql()
-	defer db.Close()
-
-
-}
+//func SearchAllDevs() (devs []Dev, err error) {
+//	db := DB.ConnSql()
+//	defer db.Close()
+//
+//
+//}

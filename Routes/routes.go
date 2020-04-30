@@ -1,13 +1,18 @@
 package Routes
 
 import (
+	"fmt"
 	"github.com/gorilla/mux"
+	"net/http"
 	"squad-manager/Controllers"
 )
 
-func CreateRoutes(router mux.Router) {
+func CreateRoutes(router *mux.Router) {
+	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Println("pong")
+	})
 	router.HandleFunc("/dev", Controllers.CreateDev).Methods("POST")
-	router.HandleFunc("/dev", Controllers.IndexDevs).Methods("GET")
+	//router.HandleFunc("/dev", Controllers.IndexDevs).Methods("GET")
 	//router.HandleFunc("/dev/{id}", Controllers.DeleteDev).Methods("DELETE")
 	//router.HandleFunc("/dev/{id}", Controllers.UpdateDev).Methods("PUT")
 

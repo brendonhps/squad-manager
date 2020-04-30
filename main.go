@@ -1,6 +1,7 @@
-package squad_manager
+package main
 
 import (
+	"fmt"
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
 	"net/http"
@@ -12,9 +13,14 @@ func main() {
 	err := godotenv.Load()
 	if err != nil {
 		/* TODO Implement the logger to capture all events and remove the panics */
+		fmt.Println("Found err in env load: ", err)
 		panic(error(err))
 	}
 
-	Routes.CreateRoutes(*r)
-	http.ListenAndServe(":80", r)
+	Routes.CreateRoutes(r)
+	err = http.ListenAndServe(":8070", r)
+	if err != nil {
+		fmt.Println("Found err on listenAndServe:", err)
+		panic(error(err))
+	}
 }
