@@ -18,7 +18,7 @@ func main() {
 	}
 
 	Routes.CreateRoutes(r)
-	err = http.ListenAndServe(":8070", r)
+	err = http.ListenAndServe(":8000", r)
 	if err != nil {
 		fmt.Println("Found err on listenAndServe:", err)
 		panic(error(err))

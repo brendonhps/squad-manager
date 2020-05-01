@@ -2,19 +2,25 @@ package Controllers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"squad-manager/Models"
 )
 
 func CreateDev(w http.ResponseWriter, r *http.Request) {
 	dev := Models.Dev{}
-	json.NewDecoder(r.Body).Decode(&dev)
-	err := Models.InsertDev(dev)
+	err := json.NewDecoder(r.Body).Decode(&dev)
+	if err != nil {
+		fmt.Println(err)
+		panic(error(err))
+	}
+
+	err = Models.InsertDev(dev)
 	if err != nil {
 		panic(error(err))
 	}
 	w.WriteHeader(200)
-	err = json.NewEncoder(w).Encode(&dev)
+	err = json.NewEncoder(w).Encode(dev)
 	if err != nil {
 		panic(error(err))
 	}
