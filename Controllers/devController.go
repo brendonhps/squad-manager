@@ -26,17 +26,17 @@ func CreateDev(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//func IndexDevs(w http.ResponseWriter, r *http.Request) {
-//	devs, err := Models.SearchAllDevs()
-//	if err != nil {
-//		panic(error(err))
-//	}
-//	w.WriteHeader(200)
-//	err = json.NewEncoder(w).Encode(devs)
-//	if err != nil {
-//		panic(error(err))
-//	}
-//}
+func IndexDevs(w http.ResponseWriter, r *http.Request) {
+	devs, err := Models.SearchAllDevs()
+	if err != nil {
+		panic(error(err))
+	}
+	w.WriteHeader(200)
+	err = json.NewEncoder(w).Encode(devs)
+	if err != nil {
+		panic(error(err))
+	}
+}
 
 /*TODO*/
 //func DeleteDev(w http.ResponseWriter, r *http.Request) {

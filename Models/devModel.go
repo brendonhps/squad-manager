@@ -1,12 +1,14 @@
 package Models
 
 import (
+	"database/sql"
+	"log"
 	"squad-manager/Aux"
 	"squad-manager/DB"
 )
 
 type Dev struct {
-	id   string `json:id`
+	ID   string `json:id`
 	Name string `json:name`
 	Age  int    `json:age`
 }
@@ -16,17 +18,27 @@ func InsertDev(dev Dev) error {
 	defer db.Close()
 
 	insertDeveloper := `
-	INSERT INTO devs (dev_id,name, age)
-	VALUES ($1, $2, $3)`
+INSERT INTO devs (dev_id,name, age)
+VALUES ($1, $2, $3)
+`
 
-	dev.id = Aux.GenerateUUID()
-	_, err := db.Exec(insertDeveloper, dev.id, dev.Name, dev.Age)
+	dev.ID = Aux.GenerateUUID()
+	_, err := db.Exec(insertDeveloper, dev.ID, dev.Name, dev.Age)
 	return err
 }
 
-//func SearchAllDevs() (devs []Dev, err error) {
-//	db := DB.ConnSql()
-//	defer db.Close()
-//
-//
-//}
+func SearchAllDevs() ([]Dev,error) {
+	db := DB.ConnSql()
+	defer db.Close()
+
+	searchDevs := "SELECT * FROM devs"
+	err := db.QueryRow(searchDevs)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if err == sql.ErrNoRows {
+		log.Fatal("No results found")
+	}
+
+}
