@@ -12,7 +12,7 @@ func CreateRoutes(router *mux.Router) {
 		fmt.Println("pong")
 	})
 	router.HandleFunc("/dev", Controllers.CreateDev).Methods("POST")
-	//router.HandleFunc("/dev", Controllers.IndexDevs).Methods("GET")
+	router.HandleFunc("/dev", Controllers.IndexDevs).Methods("GET")
 	//router.HandleFunc("/dev/{id}", Controllers.DeleteDev).Methods("DELETE")
 	//router.HandleFunc("/dev/{id}", Controllers.UpdateDev).Methods("PUT")
 

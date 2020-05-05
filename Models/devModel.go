@@ -1,7 +1,6 @@
 package Models
 
 import (
-	"database/sql"
 	"log"
 	"squad-manager/Aux"
 	"squad-manager/DB"
@@ -13,6 +12,7 @@ type Dev struct {
 	Age  int    `json:age`
 }
 
+
 func InsertDev(dev Dev) error {
 	db := DB.ConnSql()
 	defer db.Close()
@@ -21,24 +21,36 @@ func InsertDev(dev Dev) error {
 INSERT INTO devs (dev_id,name, age)
 VALUES ($1, $2, $3)
 `
-
 	dev.ID = Aux.GenerateUUID()
 	_, err := db.Exec(insertDeveloper, dev.ID, dev.Name, dev.Age)
 	return err
 }
 
 func SearchAllDevs() ([]Dev,error) {
+	var arr = []Dev{}
 	db := DB.ConnSql()
 	defer db.Close()
 
 	searchDevs := "SELECT * FROM devs"
-	err := db.QueryRow(searchDevs)
+	rows, err := db.Query(searchDevs)
 	if err != nil {
 		log.Fatal(err)
+		return nil, err
 	}
 
-	if err == sql.ErrNoRows {
-		log.Fatal("No results found")
+	for rows.Next() {
+		newDev := Dev{}
+		if err := rows.Scan(&newDev.ID,&newDev.Name,&newDev.Age); err != nil {
+			log.Fatal(err)
+			return nil, err
+		}
+		arr = append(arr,newDev)
 	}
 
+	err = rows.Close()
+	if err != nil {
+		log.Fatal(err)
+		return nil, err
+	}
+	return arr, nil
 }
