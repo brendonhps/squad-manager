@@ -1,14 +1,15 @@
-package Controllers
+package controllers
 
 import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"squad-manager/Models"
+	"squad-manager/models"
 )
 
+// CreateDev is a function to handle the route to create a dev
 func CreateDev(w http.ResponseWriter, r *http.Request) {
-	dev := Models.Dev{}
+	dev := models.Dev{}
 	err := json.NewDecoder(r.Body).Decode(&dev)
 	if err != nil {
 		fmt.Println(err)
@@ -26,8 +27,9 @@ func CreateDev(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// IndexDevs is a function to handle the route to get all devs on the system
 func IndexDevs(w http.ResponseWriter, r *http.Request) {
-	devs, err := Models.SearchAllDevs()
+	devs, err := models.SearchAllDevs()
 	if err != nil {
 		panic(error(err))
 	}

@@ -1,11 +1,12 @@
-package DB
+package db
 
 import (
 	"database/sql"
 	"fmt"
+	"os"
+
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
-	"os"
 )
 
 func loadDotEnv(key string) string {
@@ -17,7 +18,8 @@ func loadDotEnv(key string) string {
 	return os.Getenv(key)
 }
 
-func ConnSql() *sql.DB {
+// ConnSQL is a function to connect with database
+func ConnSQL() *sql.DB {
 	host := loadDotEnv("HOST_PG")
 	port := loadDotEnv("PORT_PG")
 	user := loadDotEnv("USER_PG")

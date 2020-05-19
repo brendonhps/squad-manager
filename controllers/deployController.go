@@ -1,14 +1,15 @@
-package Controllers
+package controllers
 
 import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"squad-manager/Models"
+	"squad-manager/models"
 )
 
+//CreateDeploy is a function to handle a route to create a deploy
 func CreateDeploy(w http.ResponseWriter, r *http.Request) {
-	deploy := Models.Deploy{}
+	deploy := models.Deploy{}
 	err := json.NewDecoder(r.Body).Decode(&deploy)
 	if err != nil {
 		log.Fatal(err)
@@ -27,6 +28,7 @@ func CreateDeploy(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+//IndexDeploys is a function to handle a route to get all deploys 
 func IndexDeploys(w http.ResponseWriter, r *http.Request) {
 
 }

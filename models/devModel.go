@@ -1,4 +1,4 @@
-package Models
+package models;
 
 import (
 	"log"
@@ -6,13 +6,14 @@ import (
 	"squad-manager/DB"
 )
 
+// Dev is a struct for a developer
 type Dev struct {
-	ID   string `json:id`
-	Name string `json:name`
-	Age  int    `json:age`
+	ID   string `json:"id"`
+	Name string `json:"name"`
+	Age  int    `json:"age"`
 }
 
-
+// InsertDev is a function to create a dev in database
 func InsertDev(dev Dev) error {
 	db := DB.ConnSql()
 	defer db.Close()
@@ -26,7 +27,8 @@ VALUES ($1, $2, $3)
 	return err
 }
 
-func SearchAllDevs() ([]Dev,error) {
+// SearchAllDevs is a function to return all devs found on the database
+func SearchAllDevs() ([]Dev, error) {
 	var arr = []Dev{}
 	db := DB.ConnSql()
 	defer db.Close()
@@ -40,11 +42,11 @@ func SearchAllDevs() ([]Dev,error) {
 
 	for rows.Next() {
 		newDev := Dev{}
-		if err := rows.Scan(&newDev.ID,&newDev.Name,&newDev.Age); err != nil {
+		if err := rows.Scan(&newDev.ID, &newDev.Name, &newDev.Age); err != nil {
 			log.Fatal(err)
 			return nil, err
 		}
-		arr = append(arr,newDev)
+		arr = append(arr, newDev)
 	}
 
 	err = rows.Close()
