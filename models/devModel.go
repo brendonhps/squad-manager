@@ -1,9 +1,9 @@
-package models;
+package models
 
 import (
 	"log"
-	"squad-manager/Aux"
-	"squad-manager/DB"
+	"squad-manager/db"
+	"squad-manager/utils"
 )
 
 // Dev is a struct for a developer
@@ -15,14 +15,14 @@ type Dev struct {
 
 // InsertDev is a function to create a dev in database
 func InsertDev(dev Dev) error {
-	db := DB.ConnSql()
+	db := db.ConnSQL()
 	defer db.Close()
 
 	insertDeveloper := `
 INSERT INTO devs (dev_id,name, age)
 VALUES ($1, $2, $3)
 `
-	dev.ID = Aux.GenerateUUID()
+	dev.ID = utils.GenerateUUID()
 	_, err := db.Exec(insertDeveloper, dev.ID, dev.Name, dev.Age)
 	return err
 }
@@ -30,7 +30,7 @@ VALUES ($1, $2, $3)
 // SearchAllDevs is a function to return all devs found on the database
 func SearchAllDevs() ([]Dev, error) {
 	var arr = []Dev{}
-	db := DB.ConnSql()
+	db := db.ConnSQL()
 	defer db.Close()
 
 	searchDevs := "SELECT * FROM devs"

@@ -16,7 +16,7 @@ func CreateDev(w http.ResponseWriter, r *http.Request) {
 		panic(error(err))
 	}
 
-	err = Models.InsertDev(dev)
+	err = models.InsertDev(dev)
 	if err != nil {
 		panic(error(err))
 	}

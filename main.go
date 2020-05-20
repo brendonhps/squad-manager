@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
+	"net/http"
+	"squad-manager/routes"
+
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
-	"net/http"
-	"squad-manager/Routes"
 )
 
 func main() {
@@ -17,7 +18,7 @@ func main() {
 		panic(error(err))
 	}
 
-	Routes.CreateRoutes(r)
+	routes.CreateRoutes(r)
 	err = http.ListenAndServe(":8000", r)
 	if err != nil {
 		fmt.Println("Found err on listenAndServe:", err)

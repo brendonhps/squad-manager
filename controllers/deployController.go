@@ -17,7 +17,7 @@ func CreateDeploy(w http.ResponseWriter, r *http.Request) {
 
 	// Todo validate requirement id
 
-	err = Models.InsertDeploy(deploy)
+	err = models.InsertDeploy(deploy)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -28,7 +28,7 @@ func CreateDeploy(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//IndexDeploys is a function to handle a route to get all deploys 
+//IndexDeploys is a function to handle a route to get all deploys
 func IndexDeploys(w http.ResponseWriter, r *http.Request) {
 
 }

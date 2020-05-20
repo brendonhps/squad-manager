@@ -1,6 +1,8 @@
 package models
 
 import (
+	"squad-manager/db"
+	"squad-manager/utils"
 	"time"
 )
 
@@ -13,13 +15,13 @@ type Deploy struct {
 
 // InsertDeploy is a function to insert a Deploy on the database
 func InsertDeploy(deploy Deploy) error {
-	db := DB.ConnSQL()
+	db := db.ConnSQL()
 
 	insertDeploy := `
 INSERT INTO deploy (deploy_id, deploy_date, requirements_id)
 VALUES ($1,$2,$3)
 `
-	deploy.ID = aux.GenerateUUID()
+	deploy.ID = utils.GenerateUUID()
 	_, err := db.Exec(insertDeploy, deploy.ID, deploy.Date, deploy.RequirementsID)
 	return err
 }
