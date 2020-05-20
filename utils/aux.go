@@ -1,4 +1,4 @@
-package utils
+package utilsfunc
 
 import "github.com/google/uuid"
 

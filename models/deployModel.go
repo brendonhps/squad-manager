@@ -2,7 +2,6 @@ package models
 
 import (
 	"squad-manager/db"
-	"squad-manager/utils"
 	"time"
 )
 
@@ -21,7 +20,7 @@ func InsertDeploy(deploy Deploy) error {
 INSERT INTO deploy (deploy_id, deploy_date, requirements_id)
 VALUES ($1,$2,$3)
 `
-	deploy.ID = utils.GenerateUUID()
+	deploy.ID = utilsFunc.GenerateUUID()
 	_, err := db.Exec(insertDeploy, deploy.ID, deploy.Date, deploy.RequirementsID)
 	return err
 }

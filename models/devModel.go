@@ -3,7 +3,6 @@ package models
 import (
 	"log"
 	"squad-manager/db"
-	"squad-manager/utils"
 )
 
 // Dev is a struct for a developer
